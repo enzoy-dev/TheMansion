@@ -4,7 +4,6 @@ import random
 
 from Personagem import Personagem
 from inimigo import Inimigo
-from armas import faca
 from combate import combate
 from utilidades import pedir_escolha
 from Json import salvar_jogo, carregar_jogo
@@ -101,7 +100,7 @@ def explorar_sala_jantar(jogador: Personagem, estado: dict) -> None:
 
 # EXPLORAR COZINHA
 
-def explorar_cozinha(jogador: Personagem) -> None:
+def explorar_cozinha(jogador: Personagem, estado: dict) -> None:
     while True:
         print("\nNo fundo da cozinha, você percebe três coisas:")
         print("1 - Uma porta de madeira")
@@ -126,6 +125,7 @@ def explorar_cozinha(jogador: Personagem) -> None:
             jogador.adicionar_item("munição", "munição", 3)
 
             print("\nVocê fecha a porta da despensa.")
+            estado["locais"]["despensa_explorada"] = True
 
         elif escolha == 2:
           
@@ -139,6 +139,7 @@ def explorar_cozinha(jogador: Personagem) -> None:
 
             print("Dentro do armário, você encontra uma bandagem.")
             jogador.adicionar_item("bandagem", "cura")
+            estado["locais"]["armario_explorado"] = True
 
         elif escolha == 3:
          
@@ -152,6 +153,7 @@ def explorar_cozinha(jogador: Personagem) -> None:
 
             print("\nVocê fecha a geladeira imediatamente.")
             print("Definitivamente não quer descobrir o que havia ali.")
+            estado["locais"]["geladeira_explorada"] = True
 
         elif escolha == 4:
             print("\nVocê deixa a cozinha.")
@@ -162,7 +164,7 @@ def explorar_cozinha(jogador: Personagem) -> None:
 
 # EXPLORAR CORREDOR
 
-def explorar_corredor(jogador: Personagem) -> None:
+def explorar_corredor(jogador: Personagem, estado: dict) -> None:
     print("\nVocê abre a porta e se depara com um corredor escuro.")
     print("Você sente um cheiro estranho vindo do final do corredor.")
 
@@ -176,6 +178,7 @@ def explorar_corredor(jogador: Personagem) -> None:
 
     if not venceu:
         return
+    estado["progresso"]["zumbi_derrotado"] = True
 
     print("\nVocê derrotou a criatura.")
     print("O corpo cai no chão e o corredor fica em silêncio novamente.")
@@ -224,7 +227,7 @@ def explorar_corredor(jogador: Personagem) -> None:
             print("\nNas gavetas da escrivaninha, você encontra algo útil.")
             print("\nDentro da gaveta existe uma pistola antiga.")
 
-            jogador.adicionar_item("pistola", "arma", pistola)
+            jogador.adicionar_item("pistola", "arma")
             jogador.equipar_arma(pistola)
 
             estado["itens"]["pistola_pega"] = True
@@ -232,7 +235,7 @@ def explorar_corredor(jogador: Personagem) -> None:
             print("\nVocê já explorou este quarto.")
 
         elif escolha_porta == 3:
-            explorar_final_corredor(jogador)
+            explorar_final_corredor(jogador, estado)
 
         elif escolha_porta == 4:
             print("\nVocê decide voltar.")
@@ -243,7 +246,7 @@ def explorar_corredor(jogador: Personagem) -> None:
 
 #FINAL DO CORREDOR
 
-def explorar_final_corredor(jogador: Personagem) -> None:
+def explorar_final_corredor(jogador: Personagem, estado: dict) -> None:
     print("\nO corpo da criatura permanece imóvel no chão.")
     print("Você segue em frente por alguns metros.")
 
@@ -276,7 +279,7 @@ def explorar_final_corredor(jogador: Personagem) -> None:
                 print("Há pratos quebrados espalhados pelo chão.")
                 print("Manchas escuras cobrem as paredes.")
 
-                explorar_cozinha(jogador)
+                explorar_cozinha(jogador, estado)
 
                 break
 
@@ -287,6 +290,8 @@ def explorar_final_corredor(jogador: Personagem) -> None:
             print("\nVocê decide descer a escada.")
             print("A escuridão toma conta do caminho.")
 
+            explorar_subsolo(jogador, estado)
+            
             break
 
         elif escolha == 3:
@@ -294,6 +299,280 @@ def explorar_final_corredor(jogador: Personagem) -> None:
 
         else:
             print("\nVocê hesita... mas precisa escolher uma opção.")
+
+def explorar_subsolo(jogador: Personagem, estado: dict) -> None:
+    print("\nVocê desce a escada com cuidado.")
+    print("O ambiente é úmido e frio.")
+    print("O cheiro de mofo é intenso.")
+
+    print("\nNo subsolo, você encontra uma área grande e mal iluminada.")
+    print("Há um gerador antigo no centro do local.")
+
+    explorando = True
+
+    while explorando:
+
+        print("\nO que você deseja fazer?")
+        print("1 - Procurar por recursos")
+        print("2 - Examinar o gerador")
+        print("3 - Ver as portas metálicas")
+        print("4 - Voltar")
+
+        escolha = pedir_escolha("Digite sua escolha: ")
+
+        if escolha == 1:
+            explorar_recursos_subsolo(jogador, estado)
+
+        elif escolha == 2:
+            ativar_gerador(jogador, estado)
+
+        elif escolha == 3:
+            portas_subsolo(jogador, estado)
+
+        elif escolha == 4:
+            explorando = False
+
+        else:
+            print("\nEscolha inválida.")
+
+
+def explorar_recursos_subsolo(
+    jogador: Personagem,
+    estado: dict
+) -> None:
+
+    print("\nVocê começa a procurar alguma coisa útil.")
+
+    if not estado["subsolo"]["municao_pega"]:
+        print("\nAtrás de algumas caixas, você encontra munição.")
+
+        jogador.adicionar_item("munição", "munição", 4)
+
+        estado["subsolo"]["municao_pega"] = True
+
+    elif not estado["subsolo"]["bandagem_pega"]:
+        print("\nVocê encontra uma pequena caixa de primeiros socorros.")
+
+        jogador.adicionar_item("bandagem", "cura")
+
+        estado["subsolo"]["bandagem_pega"] = True
+
+    else:
+        print("\nVocê já vasculhou praticamente tudo.")
+
+
+def ativar_gerador(
+    jogador: Personagem,
+    estado: dict
+) -> None:
+
+    if estado["subsolo"]["gerador_ligado"]:
+        print("\nO gerador continua funcionando.")
+        return
+
+    print("\nVocê se aproxima do gerador.")
+
+    print("Ele parece antigo, mas ainda pode funcionar.")
+
+    print("\nVocê verifica os cabos.")
+
+    print("Alguns estão soltos.")
+
+    print("\nDepois de alguns minutos, você consegue conectá-los.")
+
+    print("\nVocê puxa a alavanca.")
+
+    print("\n*VRRRRRRRRRRRRRR*")
+
+    print("\nO gerador começa a funcionar.")
+
+    print("\nAs luzes do subsolo se acendem.")
+
+    print("\nVocê escuta dois barulhos metálicos.")
+
+    print("*CLANG*")
+
+    print("*CLANG*")
+
+    print("\nAs duas portas metálicas foram destrancadas.")
+
+    estado["subsolo"]["gerador_ligado"] = True
+
+def portas_subsolo(
+    jogador: Personagem,
+    estado: dict
+) -> None:
+
+    if not estado["subsolo"]["gerador_ligado"]:
+
+        print("\nVocê se aproxima das duas portas metálicas.")
+
+        print("Nenhuma delas possui maçaneta.")
+
+        print("Ambas parecem depender de energia.")
+
+        return
+
+    print("\nVocê está diante das duas portas metálicas.")
+
+    print("1 - Porta da esquerda")
+    print("2 - Porta da direita")
+    print("3 - Voltar")
+
+    escolha = pedir_escolha("Digite sua escolha: ")
+
+    if escolha == 1:
+        sala_boss(jogador, estado)
+
+    elif escolha == 2:
+        garagem(jogador, estado)
+
+    elif escolha == 3:
+        return
+
+    else:
+        print("\nEscolha inválida.")
+
+def sala_boss(
+    jogador: Personagem,
+    estado: dict
+) -> None:
+
+    if estado["subsolo"]["boss_derrotado"]:
+
+        print("\nA sala está silenciosa.")
+
+        print("O corpo da criatura permanece no chão.")
+
+        return
+
+    print("\nVocê abre a porta metálica.")
+
+    print("O som ecoa por todo o subsolo.")
+
+    print("\nA sala está completamente escura.")
+
+    print("Você entra lentamente.")
+
+    print("\nA porta se fecha atrás de você.")
+
+    print("*CLANG*")
+
+    print("\nVocê escuta uma respiração.")
+
+    print("Lenta.")
+
+    print("Pesada.")
+
+    print("\nVocê aponta sua arma para o fundo da sala.")
+
+    print("\nAlgo se move.")
+
+    print("\n==============================")
+    print("          BOSS")
+    print("==============================")
+
+    boss = Inimigo(
+        "A Criatura",
+        vida=100,
+        dano_min=15,
+        dano_max=25,
+        chance_acerto=65
+    )
+
+    venceu = combate(jogador, boss)
+
+    if not venceu:
+        return
+
+    estado["subsolo"]["boss_derrotado"] = True
+
+    print("\nA criatura finalmente cai.")
+
+    print("\nO silêncio toma conta da sala.")
+
+    print("\nDepois de alguns segundos...")
+
+    print("*CLANG*")
+
+    print("\nVocê escuta a outra porta sendo liberada.")
+
+    estado["subsolo"]["boss_derrotado"] = True
+
+    print("\nA criatura finalmente cai.")
+
+    print("\nO silêncio toma conta da sala.")
+
+    print("\nDepois de alguns segundos...")
+
+    print("*CLANG*")
+
+print("\nVocê escuta a outra porta sendo liberada.")
+
+def garagem(
+    jogador: Personagem,
+    estado: dict
+) -> None:
+
+    if not estado["subsolo"]["boss_derrotado"]:
+
+        print("\nA porta continua bloqueada.")
+
+        print("Você sente que ainda precisa resolver alguma coisa.")
+
+        return
+
+    print("\nVocê abre a porta metálica.")
+
+    print("\nDessa vez ela se abre completamente.")
+
+    print("Do outro lado existe um estacionamento subterrâneo.")
+
+    print("\nHá alguns carros antigos estacionados.")
+
+    print("Um deles parece estar em condições de funcionar.")
+
+    print("\nVocê encontrou uma saída.")
+
+    final_jogo(jogador, estado)
+
+def final_jogo(
+    jogador: Personagem,
+    estado: dict
+) -> None:
+
+    print("\nVocê corre até o carro.")
+
+    print("Os outros começam a descer para o estacionamento.")
+
+    print("\nTodos entram no veículo.")
+
+    print("Você liga o motor.")
+
+    print("\nO carro demora alguns segundos para funcionar.")
+
+    print("Então o motor finalmente pega.")
+
+    print("\nVocê olha para a mansão uma última vez.")
+
+    print("O céu começa a clarear.")
+
+    print("\nO amanhecer chegou.")
+
+    print("\nO carro deixa o estacionamento.")
+
+    print("A mansão fica para trás.")
+
+    print("\nNinguém fala durante alguns minutos.")
+
+    print("\nVocês simplesmente continuam dirigindo.")
+
+    print("\n==============================")
+    print("            FIM")
+    print("==============================")
+
+    print("\nVOCÊS SOBREVIVERAM À NOITE.")
+
 
 # EXPLORAR MANSÃO
 
@@ -320,7 +599,7 @@ def explorar_mansao(jogador: Personagem, estado: dict) -> None:
            explorar_sala_jantar(jogador, estado)
 
           elif escolha == 2:
-           explorar_corredor(jogador)
+           explorar_corredor(jogador, estado)
 
           elif escolha == 3:
            dentro_da_sala = False
@@ -331,7 +610,7 @@ def explorar_mansao(jogador: Personagem, estado: dict) -> None:
         else:
 
          if escolha == 1:
-          explorar_corredor(jogador)
+          explorar_corredor(jogador, estado)
 
          elif escolha == 2:
           dentro_da_sala = False
@@ -364,7 +643,18 @@ estado = {
       "despensa_explorada": False,
       "armario_explorado": False,
       "geladeira_explorada": False
-}
+    },
+    "progresso": {
+    "zumbi_derrotado": False,
+    "pistola_pega": False,
+    "porta_final_aberta": False
+    },
+    "subsolo": {
+        "gerador_ligado": False,
+        "boss_derrotado": False,
+        "municao_pega": False,
+        "bandagem_pega": False
+    }
 }
 
 
