@@ -359,7 +359,8 @@ while jogando:
     print("1 - Explorar a mansão")
     print("2 - Conversar com o grupo")
     print("3 - Salvar o jogo")
-    print("4 - Sair do jogo")
+    print("4 - Carregar o jogo")
+    print("5 - Sair do jogo")
 
     escolha = pedir_escolha("Digite o número da sua escolha: ")
 
@@ -373,6 +374,9 @@ while jogando:
      salvar_jogo(jogador, estado)
 
     elif escolha == 4:
+     carregar_jogo(jogador, estado)
+
+    elif escolha == 5:
      print("\nVocê decide parar por aqui. Até a próxima!")
      jogando = False
 
