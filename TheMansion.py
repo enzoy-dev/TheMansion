@@ -1,60 +1,16 @@
 
 
 import random   
-import json
 
 from Personagem import Personagem
 from inimigo import Inimigo
 from armas import faca
 from combate import combate
 from utilidades import pedir_escolha
+from Json import salvar_jogo, carregar_jogo
 
 
-# =========================
-# JSON SAVE AND LOAD
-# =========================
 
-def criar_dados_save(
-    jogador: Personagem,
-    estado: dict
-) -> dict:
-    return {
-        "vida": jogador.vida,
-        "inventario": jogador.inventario,
-        "estado": estado
-    }
-
-def salvar_jogo(
-    jogador: Personagem,
-    estado: dict
-) -> None:
-    dados = criar_dados_save(jogador, estado)
-
-    with open("save.json", "w", encoding="utf-8") as arquivo:
-        json.dump(dados, arquivo, indent=4)
-
-    print("Jogo salvo com sucesso!")
-
-
-def carregar_jogo(
-    jogador: Personagem,
-    estado: dict
-) -> None:
-    try:
-        with open("save.json", "r", encoding="utf-8") as arquivo:
-            dados = json.load(arquivo)
-
-        jogador.vida = dados["vida"]
-        jogador.inventario = dados["inventario"]
-        estado.update(dados["estado"])
-
-        print("Jogo carregado com sucesso!")
-
-    except FileNotFoundError:
-        print("Nenhum save encontrado.")
-
-    except json.JSONDecodeError:
-        print("O arquivo de save está corrompido.")
 # =========================
 # CONVERSAR COM O GRUPO
 # =========================
