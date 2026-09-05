@@ -8,6 +8,7 @@ from armas import faca
 from combate import combate
 from utilidades import pedir_escolha
 from Json import salvar_jogo, carregar_jogo
+from armas import faca, pistola
 
 
 
@@ -215,14 +216,20 @@ def explorar_corredor(jogador: Personagem) -> None:
             jogador.adicionar_item("bandagem", "cura")
 
         elif escolha_porta == 2:
+          if not estado["itens"].get("pistola_pega", False):
             print("\nVocê segura a maçaneta e força a porta.")
             print("A madeira começa a quebrar...")
             print("Você entra em um pequeno escritório cheio de livros.")
 
             print("\nNas gavetas da escrivaninha, você encontra algo útil.")
-            print("Algumas munições estavam escondidas dentro.")
+            print("\nDentro da gaveta existe uma pistola antiga.")
 
-            jogador.adicionar_item("munição", "munição", 3)
+            jogador.adicionar_item("pistola", "arma", pistola)
+            jogador.equipar_arma(pistola)
+
+            estado["itens"]["pistola_pega"] = True
+          else:
+            print("\nVocê já explorou este quarto.")
 
         elif escolha_porta == 3:
             explorar_final_corredor(jogador)
