@@ -4,17 +4,21 @@ import random
 
 
 class Arma:
+
     def __init__(
         self,
         nome: str,
         dano_min: int,
         dano_max: int,
-        chance_acerto: int
+        chance_acerto: int,
+        usa_municao: bool = False
     ) -> None:
+
         self.nome = nome
         self.dano_min = dano_min
         self.dano_max = dano_max
         self.chance_acerto = chance_acerto
+        self.usa_municao = usa_municao
 
 
     def atacar(self, alvo):
@@ -38,20 +42,23 @@ class Arma:
 class Faca(Arma):
     def __init__(self) -> None:
         super().__init__(
-            nome="faca",
-            dano_min=10,
-            dano_max=20,
-            chance_acerto=80
-        )
+    nome="faca",
+    dano_min=10,
+    dano_max=20,
+    chance_acerto=80,
+    usa_municao=False
+)
 
 
 class Pistola(Arma):
+
     def __init__(self) -> None:
         super().__init__(
             nome="pistola",
             dano_min=25,
             dano_max=40,
-            chance_acerto=70
+            chance_acerto=70,
+            usa_municao=True
         )
 
 
