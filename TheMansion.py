@@ -334,27 +334,38 @@ def explorar_mansao(jogador: Personagem, estado: dict) -> None:
 
         if not estado["itens"].get("chave_pega", False):
             print("1 - Explorar a sala de jantar")
-
-        print("2 - Abrir a porta no fundo")
-        print("3 - Voltar")
+            print("2 - Abrir a porta no fundo")
+            print("3 - Voltar")
+        else:
+            print("1- continuar pelo corredor")
+            print("2 - voltar")
 
         escolha = pedir_escolha("Digite o número da sua escolha: ")
 
-        if escolha == 1:
-            if not estado["itens"].get("chave_pega", False):
-                explorar_sala_jantar(jogador, estado)
-            else:
-                print("\nVocê já explorou a sala de jantar.")
+        if not estado["itens"].get("chave_pega", False):
 
-        elif escolha == 2:
-            explorar_corredor(jogador)
+          if escolha == 1:
+           explorar_sala_jantar(jogador, estado)
 
-        elif escolha == 3:
-            print("\nVocê decide voltar.")
-            dentro_da_sala = False
+          elif escolha == 2:
+           explorar_corredor(jogador)
+
+          elif escolha == 3:
+           dentro_da_sala = False
+
+          else:
+           print("\nEscolha inválida.")
 
         else:
-            print("\nEscolha inválida.")
+
+         if escolha == 1:
+          explorar_corredor(jogador)
+
+         elif escolha == 2:
+          dentro_da_sala = False
+
+         else:
+          print("\nEscolha inválida.")
 
 
 # =========================
