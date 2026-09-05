@@ -111,6 +111,9 @@ def explorar_cozinha(jogador: Personagem) -> None:
         escolha = pedir_escolha("\nO que você deseja investigar? ")
 
         if escolha == 1:
+         
+         if not estado["locais"]["despensa_explorada"]:
+
             print("\nVocê se aproxima da porta.")
             print("A maçaneta está coberta por uma substância escura.")
             print("Você segura a respiração e abre a porta.")
@@ -124,6 +127,9 @@ def explorar_cozinha(jogador: Personagem) -> None:
             print("\nVocê fecha a porta da despensa.")
 
         elif escolha == 2:
+          
+          if not estado["locais"]["armario_explorado"]:
+
             print("\nVocê abre o armário.")
             print("Alguns pratos caem no chão e fazem um barulho enorme.")
 
@@ -134,6 +140,9 @@ def explorar_cozinha(jogador: Personagem) -> None:
             jogador.adicionar_item("bandagem", "cura")
 
         elif escolha == 3:
+         
+         if not estado["locais"]["geladeira_explorada"]:
+
             print("\nVocê se aproxima da geladeira.")
             print("Ela está coberta de ferrugem.")
 
@@ -343,8 +352,14 @@ estado = {
     "conversas": {
         "conversa_helena": False,
         "conversa_davi": False
-    }
+    },
+    "locais": {
+      "despensa_explorada": False,
+      "armario_explorado": False,
+      "geladeira_explorada": False
 }
+}
+
 
 jogando = True
 
