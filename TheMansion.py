@@ -112,7 +112,7 @@ def explorar_cozinha(jogador: Personagem, estado: dict) -> None:
 
         if escolha == 1:
          
-         if not estado["locais"]["despensa_explorada"]:
+           if not estado["locais"]["despensa_explorada"]:
 
             print("\nVocê se aproxima da porta.")
             print("A maçaneta está coberta por uma substância escura.")
@@ -129,7 +129,7 @@ def explorar_cozinha(jogador: Personagem, estado: dict) -> None:
 
         elif escolha == 2:
           
-          if not estado["locais"]["armario_explorado"]:
+           if not estado["locais"]["armario_explorado"]:
 
             print("\nVocê abre o armário.")
             print("Alguns pratos caem no chão e fazem um barulho enorme.")
@@ -143,7 +143,7 @@ def explorar_cozinha(jogador: Personagem, estado: dict) -> None:
 
         elif escolha == 3:
          
-         if not estado["locais"]["geladeira_explorada"]:
+           if not estado["locais"]["geladeira_explorada"]:
 
             print("\nVocê se aproxima da geladeira.")
             print("Ela está coberta de ferrugem.")
@@ -168,27 +168,29 @@ def explorar_corredor(jogador: Personagem, estado: dict) -> None:
     print("\nVocê abre a porta e se depara com um corredor escuro.")
     print("Você sente um cheiro estranho vindo do final do corredor.")
 
-    print("\nVocê decide seguir em frente, mas de repente uma criatura aparece e te ataca!")
-    print("Você consegue se defender com a faca, mas acaba se machucando no processo.")
+    if not estado["progresso"]["zumbi_derrotado"]:
+     print("\nVocê decide seguir em frente, mas de repente uma criatura aparece e te ataca!")
+     print("Você consegue se defender com a faca, mas acaba se machucando no processo.")
 
-    jogador.receber_dano(20)
+     jogador.receber_dano(20)
 
-    zumbi = Inimigo("Zumbi", vida=30)
-    venceu = combate(jogador, zumbi)
+     zumbi = Inimigo("Zumbi", vida=30)
+     venceu = combate(jogador, zumbi)
 
-    if not venceu:
-        return
-    estado["progresso"]["zumbi_derrotado"] = True
+     if not venceu:
+       return
 
-    print("\nVocê derrotou a criatura.")
-    print("O corpo cai no chão e o corredor fica em silêncio novamente.")
+     estado["progresso"]["zumbi_derrotado"] = True
 
-    print("\nÀ sua frente existem duas portas antigas à esquerda.")
-    print("Também existe um corredor que continua à frente.")
+     print("\nVocê derrotou a criatura.")
+     print("O corpo cai no chão e o corredor fica em silêncio novamente.")
+    else:
+     print("\nO corpo do zumbi continua no chão.")
+     print("Você segue pelo corredor.")
 
-    print("\nO que você deseja fazer?")
-    print("1 - Continuar")
-    print("2 - Usar bandagem")
+     print("\nO que você deseja fazer?")
+     print("1 - Continuar")
+     print("2 - Usar bandagem")
 
     escolha = pedir_escolha("> ")
 
@@ -209,6 +211,7 @@ def explorar_corredor(jogador: Personagem, estado: dict) -> None:
         escolha_porta = pedir_escolha("Digite o número da sua escolha: ")
 
         if escolha_porta == 1:
+           if not estado["locais"]["quarto_explorado"]:
             print("\nVocê empurra a porta lentamente...")
             print("As dobradiças rangem, ecoando pelo corredor.")
             print("O quarto parece abandonado há décadas.")
@@ -217,6 +220,11 @@ def explorar_corredor(jogador: Personagem, estado: dict) -> None:
             print("Uma bandagem antiga está escondida entre os lençóis.")
 
             jogador.adicionar_item("bandagem", "cura")
+
+            estado["locais"]["quarto_explorado"] = True
+           else:
+            print("\nVocê entra no quarto novamente.")
+            print("Não há mais nada útil aqui.")
 
         elif escolha_porta == 2:
           if not estado["itens"].get("pistola_pega", False):
@@ -497,18 +505,6 @@ def sala_boss(
 
     print("\nVocê escuta a outra porta sendo liberada.")
 
-    estado["subsolo"]["boss_derrotado"] = True
-
-    print("\nA criatura finalmente cai.")
-
-    print("\nO silêncio toma conta da sala.")
-
-    print("\nDepois de alguns segundos...")
-
-    print("*CLANG*")
-
-print("\nVocê escuta a outra porta sendo liberada.")
-
 def garagem(
     jogador: Personagem,
     estado: dict
@@ -632,7 +628,8 @@ estado = {
     "itens": {
         "faca_pega": False,
         "chave_pega": False,
-        "mesa_explorada": False
+        "mesa_explorada": False,
+        "pistola_pega": False
     },
 
     "conversas": {
@@ -642,12 +639,11 @@ estado = {
     "locais": {
       "despensa_explorada": False,
       "armario_explorado": False,
-      "geladeira_explorada": False
+      "geladeira_explorada": False,
+      "quarto_explorado": False
     },
     "progresso": {
     "zumbi_derrotado": False,
-    "pistola_pega": False,
-    "porta_final_aberta": False
     },
     "subsolo": {
         "gerador_ligado": False,
