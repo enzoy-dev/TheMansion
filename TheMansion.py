@@ -201,91 +201,145 @@ def explorar_cozinha(jogador: Personagem, estado: dict) -> None:
 # EXPLORAR CORREDOR
 
 def explorar_corredor(jogador: Personagem, estado: dict) -> None:
+
     print("\nVocê abre a porta e se depara com um corredor escuro.")
     print("Você sente um cheiro estranho vindo do final do corredor.")
 
+    # EVENTO DO ZUMBI
     if not estado["progresso"]["zumbi_derrotado"]:
-     print("\nVocê decide seguir em frente, mas de repente uma criatura aparece e te ataca!")
-     print("Você consegue se defender com a faca, mas acaba se machucando no processo.")
 
-     jogador.receber_dano(20)
+        print("\nVocê decide seguir em frente...")
 
-     zumbi = Inimigo("Zumbi", vida=30)
-     venceu = combate(jogador, zumbi)
+        print("De repente, uma criatura aparece e te ataca!")
 
-     if not venceu:
-       return
+        print("Você consegue se defender com a faca,")
+        print("mas acaba se machucando no processo.")
 
-     estado["progresso"]["zumbi_derrotado"] = True
+        jogador.receber_dano(20)
 
-     print("\nVocê derrotou a criatura.")
-     print("O corpo cai no chão e o corredor fica em silêncio novamente.")
+        zumbi = Inimigo(
+            "Zumbi",
+            vida=30
+        )
+
+        venceu = combate(jogador, zumbi)
+
+        if not venceu:
+            return
+
+        estado["progresso"]["zumbi_derrotado"] = True
+
+        print("\nVocê derrotou a criatura.")
+        print("O corpo cai no chão.")
+        print("O corredor fica em silêncio novamente.")
+
     else:
      print("\nO corpo do zumbi continua no chão.")
-     print("Você segue pelo corredor.")
 
-     print("\nO que você deseja fazer?")
-     print("1 - Continuar")
-     print("2 - Usar bandagem")
-
-    escolha = pedir_escolha("> ")
-
-    if escolha == 2:
-        if jogador.quantidade_item("bandagem") > 0:
-            jogador.usar_item("bandagem")
-            jogador.curar(20)
-        else:
-            print("\nVocê não possui nenhuma bandagem.")
+     
+       # =========================
+    # EXPLORAÇÃO DO CORREDOR
+    # =========================
 
     while True:
-        print("\nO que você deseja fazer agora?")
+
+        print("\nVocê está no corredor.")
+
+        print("\nO que você deseja fazer?")
         print("1 - Abrir a primeira porta")
         print("2 - Abrir a segunda porta")
         print("3 - Continuar pelo corredor")
-        print("4 - Voltar")
+        print("4 - Usar bandagem")
+        print("5 - Voltar")
 
-        escolha_porta = pedir_escolha("Digite o número da sua escolha: ")
+        escolha = pedir_escolha(
+            "Digite o número da sua escolha: "
+        )
 
-        if escolha_porta == 1:
-           if not estado["locais"]["quarto_explorado"]:
-            print("\nVocê empurra a porta lentamente...")
-            print("As dobradiças rangem, ecoando pelo corredor.")
-            print("O quarto parece abandonado há décadas.")
+        # PRIMEIRA PORTA
+        if escolha == 1:
 
-            print("\nEm cima da cama, algo chama sua atenção.")
-            print("Uma bandagem antiga está escondida entre os lençóis.")
+            if not estado["locais"]["quarto_explorado"]:
 
-            jogador.adicionar_item("bandagem", "cura")
+                print("\nVocê empurra a porta lentamente...")
+                print("As dobradiças rangem, ecoando pelo corredor.")
 
-            estado["locais"]["quarto_explorado"] = True
-           else:
-            print("\nVocê entra no quarto novamente.")
-            print("Não há mais nada útil aqui.")
+                print("\nO quarto parece abandonado há décadas.")
 
-        elif escolha_porta == 2:
-          if not estado["itens"].get("pistola_pega", False):
-            print("\nVocê segura a maçaneta e força a porta.")
-            print("A madeira começa a quebrar...")
-            print("Você entra em um pequeno escritório cheio de livros.")
+                print("\nEm cima da cama, algo chama sua atenção.")
 
-            print("\nNas gavetas da escrivaninha, você encontra algo útil.")
-            print("\nDentro da gaveta existe uma pistola antiga.")
+                print("Uma bandagem antiga está escondida entre os lençóis.")
 
-            jogador.adicionar_item("pistola", "arma")
-            jogador.equipar_arma(pistola)
+                jogador.adicionar_item(
+                    "bandagem",
+                    "cura"
+                )
 
-            estado["itens"]["pistola_pega"] = True
-          else:
-            print("\nVocê já explorou este quarto.")
+                estado["locais"]["quarto_explorado"] = True
 
-        elif escolha_porta == 3:
-            explorar_final_corredor(jogador, estado)
+            else:
 
-        elif escolha_porta == 4:
+                print("\nVocê entra no quarto novamente.")
+                print("Não há mais nada útil aqui.")
+
+        # SEGUNDA PORTA
+        elif escolha == 2:
+
+            if not estado["itens"]["pistola_pega"]:
+
+                print("\nVocê segura a maçaneta e força a porta.")
+
+                print("A madeira começa a quebrar...")
+
+                print("Você entra em um pequeno escritório cheio de livros.")
+
+                print("\nNas gavetas da escrivaninha,")
+                print("você encontra algo útil.")
+
+                print("\nDentro da gaveta existe uma pistola antiga.")
+
+                jogador.adicionar_item(
+                    "pistola",
+                    "arma"
+                )
+
+                jogador.equipar_arma(pistola)
+
+                estado["itens"]["pistola_pega"] = True
+
+            else:
+
+                print("\nVocê já explorou este escritório.")
+
+        # FINAL DO CORREDOR
+        elif escolha == 3:
+
+            explorar_final_corredor(
+                jogador,
+                estado
+            )
+
+        # BANDAGEM
+        elif escolha == 4:
+
+            if jogador.quantidade_item("bandagem") > 0:
+
+                jogador.usar_item("bandagem")
+                jogador.curar(20)
+
+            else:
+
+                print("\nVocê não possui nenhuma bandagem.")
+
+        # VOLTAR
+        elif escolha == 5:
+
             print("\nVocê decide voltar.")
-            break
+
+            return
 
         else:
+
             print("\nEscolha inválida.")
 
 #FINAL DO CORREDOR
