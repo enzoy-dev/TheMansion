@@ -60,43 +60,79 @@ def conversar_grupo(estado: dict[str, dict[str, bool]]) -> None:
 # =========================
 
 def explorar_sala_jantar(jogador: Personagem, estado: dict) -> None:
-    if not estado["itens"]["faca_pega"]:
-        print("\nVocê vira à esquerda e se depara com uma sala de jantar chique.")
-        print("Há uma porta no fundo da sala.")
-        print("Você encontra uma faca sobre a mesa e a guarda com você.")
+    explorando = True
 
-        jogador.adicionar_item("faca", "arma")
-        jogador.equipar_arma(faca)
+    while explorando:
+        print("\nVocê está na sala de jantar.")
+        print("Há uma mesa grande no centro da sala.")
+        print("Uma porta de madeira está no fundo.")
 
-        estado["itens"]["faca_pega"] = True
+        print("\nO que você deseja fazer?")
+        print("1 - Examinar a mesa")
+        print("2 - Tentar abrir a porta do fundo")
+        print("3 - Voltar")
 
-    else:
-        print("\nA mesa está vazia. Você já pegou a faca.")
+        escolha = pedir_escolha("Digite o número da sua escolha: ")
 
-    if not estado["itens"]["chave_pega"]:
-        print("\nVocê explora a sala de jantar.")
-        print("Você encontra uma chave em formato de caveira em cima da mesa principal.")
+        if escolha == 1:
+            if not estado["itens"]["faca_pega"]:
+                print("\nVocê examina a mesa.")
+                print("Sobre ela, há uma faca.")
 
-        jogador.adicionar_item("chave de caveira", "chave")
+                jogador.adicionar_item("faca", "arma")
+                jogador.equipar_arma(faca)
 
-        item = random.randint(1, 3)
+                estado["itens"]["faca_pega"] = True
 
-        if item == 1:
-            jogador.adicionar_item("munição", "munição", 3)
-            print("Você também encontrou 3 munições.")
+                print("Você pega a faca.")
+            else:
+                print("\nA mesa está vazia.")
+                print("Você já pegou a faca.")
 
-        elif item == 2:
-            jogador.adicionar_item("bandagem", "cura")
-            print("Você também encontrou uma bandagem.")
+            if not estado["itens"]["chave_pega"]:
+                print("\nAo continuar examinando a mesa, você encontra")
+                print("uma chave em formato de caveira.")
+
+                jogador.adicionar_item("chave de caveira", "chave")
+                estado["itens"]["chave_pega"] = True
+
+                item = random.randint(1, 3)
+
+                if item == 1:
+                    jogador.adicionar_item("munição", "munição", 3)
+                    print("Você também encontrou 3 munições.")
+
+                elif item == 2:
+                    jogador.adicionar_item("bandagem", "cura")
+                    print("Você também encontrou uma bandagem.")
+
+                else:
+                    print("Você não encontrou mais nada.")
+
+            else:
+                print("\nVocê já encontrou tudo o que havia na mesa.")
+
+        elif escolha == 2:
+            if jogador.quantidade_item("chave de caveira") > 0:
+                print("\nVocê coloca a chave de caveira na fechadura.")
+                print("A porta destranca.")
+
+                print("\nVocê abre a porta lentamente.")
+                explorar_corredor(jogador, estado)
+
+                explorando = False
+
+            else:
+                print("\nVocê tenta abrir a porta.")
+                print("Ela está trancada.")
+                print("Você precisa encontrar uma chave.")
+
+        elif escolha == 3:
+            print("\nVocê deixa a sala de jantar.")
+            explorando = False
 
         else:
-            print("Você não encontrou mais nada.")
-
-        estado["itens"]["chave_pega"] = True
-        estado["itens"]["mesa_explorada"] = True
-
-    else:
-        print("\nVocê já explorou a sala de jantar.")
+            print("\nEscolha inválida.")
 
 # EXPLORAR COZINHA
 
@@ -573,46 +609,27 @@ def final_jogo(
 # EXPLORAR MANSÃO
 
 def explorar_mansao(jogador: Personagem, estado: dict) -> None:
-    dentro_da_sala = True
+    explorando = True
 
-    while dentro_da_sala:
+    while explorando:
         jogador.mostrar_status()
-        print("\nO que você deseja fazer agora?")
 
-        if not estado["itens"].get("chave_pega", False):
-            print("1 - Explorar a sala de jantar")
-            print("2 - Abrir a porta no fundo")
-            print("3 - Voltar")
-        else:
-            print("1- continuar pelo corredor")
-            print("2 - voltar")
+        print("\nVocê está na entrada da mansão.")
+        print("\nO que você deseja fazer?")
+        print("1 - Explorar a sala de jantar")
+        print("2 - Voltar")
 
         escolha = pedir_escolha("Digite o número da sua escolha: ")
 
-        if not estado["itens"].get("chave_pega", False):
+        if escolha == 1:
+            explorar_sala_jantar(jogador, estado)
 
-          if escolha == 1:
-           explorar_sala_jantar(jogador, estado)
-
-          elif escolha == 2:
-           explorar_corredor(jogador, estado)
-
-          elif escolha == 3:
-           dentro_da_sala = False
-
-          else:
-           print("\nEscolha inválida.")
+        elif escolha == 2:
+            print("\nVocê deixa a mansão por enquanto.")
+            explorando = False
 
         else:
-
-         if escolha == 1:
-          explorar_corredor(jogador, estado)
-
-         elif escolha == 2:
-          dentro_da_sala = False
-
-         else:
-          print("\nEscolha inválida.")
+            print("\nEscolha inválida.")
 
 
 # =========================
