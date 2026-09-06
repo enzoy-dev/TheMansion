@@ -702,19 +702,18 @@ estado = {
         "mesa_explorada": False,
         "pistola_pega": False
     },
-
     "conversas": {
         "conversa_helena": False,
         "conversa_davi": False
     },
     "locais": {
-      "despensa_explorada": False,
-      "armario_explorado": False,
-      "geladeira_explorada": False,
-      "quarto_explorado": False
+        "despensa_explorada": False,
+        "armario_explorado": False,
+        "geladeira_explorada": False,
+        "quarto_explorado": False
     },
     "progresso": {
-    "zumbi_derrotado": False,
+        "zumbi_derrotado": False
     },
     "subsolo": {
         "gerador_ligado": False,
