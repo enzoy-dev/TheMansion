@@ -1,10 +1,12 @@
 import json
+from armas import armas
 
 
 def criar_dados_save(jogador, estado):
     return {
         "vida": jogador.vida,
         "inventario": jogador.inventario,
+        "arma_equipada": jogador.arma_equipada.nome if jogador.arma_equipada else None,
         "estado": estado
     }
 
@@ -26,6 +28,13 @@ def carregar_jogo(jogador, estado):
         jogador.vida = dados["vida"]
         jogador.inventario = dados["inventario"]
         estado.update(dados["estado"])
+
+        # Restaura a arma equipada
+        nome_arma = dados.get("arma_equipada")
+        if nome_arma and nome_arma in armas:
+            jogador.arma_equipada = armas[nome_arma]
+        else:
+            jogador.arma_equipada = None
 
         print("\nJogo carregado com sucesso!")
 
