@@ -1,58 +1,36 @@
+"""Armas imutáveis; o inventário do personagem controla o gasto de munição."""
+from dataclasses import dataclass
 import random
 
 
+@dataclass(frozen=True)
 class Arma:
-    def __init__(
-        self,
-        nome: str,
-        dano_min: int,
-        dano_max: int,
-        chance_acerto: int,
-        usa_municao: bool = False
-    ) -> None:
-        self.nome = nome
-        self.dano_min = dano_min
-        self.dano_max = dano_max
-        self.chance_acerto = chance_acerto
-        self.usa_municao = usa_municao
+    nome: str
+    dano_min: int
+    dano_max: int
+    chance_acerto: int
+    usa_municao: bool = False
 
-    def atacar(self, alvo) -> int:
-        acerto = random.randint(1, 100)
-        if acerto <= self.chance_acerto:
-            dano = random.randint(self.dano_min, self.dano_max)
-            print(f"\nVocê acertou o ataque e causou {dano} de dano!")
-            alvo.receber_dano(dano)
-            return dano
-        print("\nVocê errou o ataque!")
-        return 0
+    def atacar(self, alvo, rng=None) -> int:
+        rng = rng or random
+        if rng.randint(1, 100) > self.chance_acerto:
+            return 0
+        dano = rng.randint(self.dano_min, self.dano_max)
+        alvo.receber_dano(dano)
+        return dano
 
 
 class Faca(Arma):
-    def __init__(self) -> None:
-        super().__init__(
-            nome="faca",
-            dano_min=10,
-            dano_max=20,
-            chance_acerto=80,
-            usa_municao=False
-        )
+    def __init__(self):
+        super().__init__('faca', 10, 20, 80)
 
 
 class Pistola(Arma):
-    def __init__(self) -> None:
-        super().__init__(
-            nome="pistola",
-            dano_min=25,
-            dano_max=40,
-            chance_acerto=70,
-            usa_municao=True
-        )
+    def __init__(self):
+        super().__init__('pistola', 25, 40, 70, True)
 
 
 faca = Faca()
 pistola = Pistola()
-
-armas = {
-    "faca": faca,
-    "pistola": pistola
-}
+punhos = Arma('punhos', 3, 6, 75)
+armas = {'faca': faca, 'pistola': pistola}
