@@ -1,7 +1,12 @@
+from copy import deepcopy
+from dataclasses import dataclass
 from typing import TypedDict
 
-from inimigo import Inimigo
-from armas import Arma
+from armas import Arma, punhos
+
+CURA_BANDAGEM = 40
+TIPOS_ITENS = {'faca': 'arma', 'pistola': 'arma', 'munição': 'munição',
+               'bandagem': 'cura', 'chave de caveira': 'chave', 'fusível': 'peça'}
 
 
 class Item(TypedDict):
@@ -10,97 +15,90 @@ class Item(TypedDict):
     quantidade: int
 
 
+def inteiro_positivo(valor):
+    if type(valor) is not int or valor <= 0:
+        raise ValueError('A quantidade deve ser um inteiro positivo.')
+
+
+@dataclass(frozen=True)
+class Ataque:
+    executado: bool
+    dano: int
+    arma: str
+
+
 class Personagem:
-    def __init__(
-        self,
-        nome: str,
-        vida: int,
-        inventario: list[Item] | None = None
-    ) -> None:
-        self.nome = nome
+    def __init__(self, nome: str, vida: int = 100, inventario: list[Item] | None = None):
+        if not isinstance(nome, str) or not 1 <= len(nome.strip()) <= 100:
+            raise ValueError('O nome deve ter entre 1 e 100 caracteres.')
+        inteiro_positivo(vida)
+        self.nome = nome.strip()
         self.vida_maxima = vida
         self._vida = vida
-        self.inventario = inventario if inventario is not None else []
+        self.inventario = deepcopy(inventario) if inventario is not None else []
         self.arma_equipada: Arma | None = None
 
     @property
-    def vida(self) -> int:
+    def vida(self):
         return self._vida
 
     @vida.setter
-    def vida(self, valor: int) -> None:
-        if valor < 0:
-            self._vida = 0
-        elif valor > self.vida_maxima:
-            self._vida = self.vida_maxima
-        else:
-            self._vida = valor
+    def vida(self, valor):
+        if type(valor) is not int:
+            raise ValueError('Vida deve ser um inteiro.')
+        self._vida = max(0, min(valor, self.vida_maxima))
 
-    def equipar_arma(self, arma: Arma) -> bool:
-        if self.quantidade_item(arma.nome) > 0:
-            self.arma_equipada = arma
-            print(f"\nVocê equipou a {arma.nome}.")
-            return True
+    def equipar_arma(self, arma):
+        if self.quantidade_item(arma.nome) == 0:
+            return False
+        self.arma_equipada = arma
+        return True
 
-        print(f"\nVocê não possui a {arma.nome} no inventário.")
-        return False
+    def atacar(self, inimigo, rng=None):
+        arma = self.arma_equipada or punhos
+        if arma.usa_municao and not self.usar_item('munição'):
+            return Ataque(False, 0, arma.nome)
+        return Ataque(True, arma.atacar(inimigo, rng), arma.nome)
 
-    def atacar(self, inimigo: Inimigo) -> None:
-        if self.arma_equipada:
-            self.arma_equipada.atacar(inimigo)
-        else:
-            print("\nVocê não tem uma arma equipada!")
-
-    def adicionar_item(self, nome_item: str, tipo: str, quantidade: int = 1) -> None:
+    def adicionar_item(self, nome_item, tipo=None, quantidade=1):
+        inteiro_positivo(quantidade)
+        if nome_item not in TIPOS_ITENS or (tipo is not None and tipo != TIPOS_ITENS[nome_item]):
+            raise ValueError('Item ou tipo desconhecido.')
         for item in self.inventario:
-            if item["nome"] == nome_item:
-                item["quantidade"] += quantidade
-                print(f"\nVocê encontrou {quantidade} {nome_item}(s).")
+            if item['nome'] == nome_item:
+                item['quantidade'] += quantidade
                 return
-        self.inventario.append({"nome": nome_item, "tipo": tipo, "quantidade": quantidade})
-        print(f"\nVocê encontrou {quantidade} {nome_item}(s).")
+        self.inventario.append({'nome': nome_item, 'tipo': TIPOS_ITENS[nome_item], 'quantidade': quantidade})
 
-    def quantidade_item(self, nome_item: str) -> int:
-        for item in self.inventario:
-            if item["nome"] == nome_item:
-                return item["quantidade"]
-        return 0
+    def quantidade_item(self, nome_item):
+        return next((item['quantidade'] for item in self.inventario if item['nome'] == nome_item), 0)
 
-    def usar_item(self, nome_item: str, quantidade: int = 1) -> bool:
+    def usar_item(self, nome_item, quantidade=1):
+        inteiro_positivo(quantidade)
         for item in self.inventario:
-            if item["nome"] == nome_item and item["quantidade"] >= quantidade:
-                item["quantidade"] -= quantidade
-                if item["quantidade"] == 0:
+            if item['nome'] == nome_item and item['quantidade'] >= quantidade:
+                item['quantidade'] -= quantidade
+                if not item['quantidade']:
                     self.inventario.remove(item)
                 return True
         return False
 
-    def receber_dano(self, dano: int) -> None:
+    def usar_bandagem(self):
+        if self.vida == 0 or self.vida == self.vida_maxima or not self.usar_item('bandagem'):
+            return 0
+        return self.curar(CURA_BANDAGEM)
+
+    def receber_dano(self, dano):
+        inteiro_positivo(dano)
+        antes = self.vida
         self.vida -= dano
-        print(f"\nVocê recebeu {dano} de dano!")
-        print(f"Vida atual: {self.vida}")
+        return antes - self.vida
 
-    def curar(self, quantidade: int) -> None:
+    def curar(self, quantidade):
+        inteiro_positivo(quantidade)
+        antes = self.vida
         self.vida += quantidade
-        print(f"\nVocê usa uma bandagem e recupera {quantidade} de vida!")
+        return self.vida - antes
 
-    def esta_vivo(self) -> bool:
+    def esta_vivo(self):
         return self.vida > 0
-
-    def mostrar_status(self) -> None:
-        print("\n----------------------------")
-        print(f"Vida: {self.vida}")
-
-        if len(self.inventario) == 0:
-            print("Inventário: vazio")
-        else:
-            print("Inventário:")
-            for item in self.inventario:
-                print(f"- {item['nome']} x{item['quantidade']}")
-
-        if self.arma_equipada:
-            print(f"Arma equipada: {self.arma_equipada.nome}")
-        else:
-            print("Arma equipada: nenhuma")
-
-        print("----------------------------")

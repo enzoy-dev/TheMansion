@@ -5,3 +5,8 @@ save.json
 .venv/
 .idea/
 .vscode/
+.pytest_cache/
+.save.json.*.tmp
+
+save-backup*.json
+saves/

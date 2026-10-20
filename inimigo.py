@@ -1,9 +1,6 @@
-import random
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+import random
 
-if TYPE_CHECKING:
-    from Personagem import Personagem
 
 @dataclass
 class Inimigo:
@@ -13,17 +10,20 @@ class Inimigo:
     dano_max: int = 15
     chance_acerto: int = 70
 
-    def esta_vivo(self) -> bool:
+    def esta_vivo(self):
         return self.vida > 0
 
-    def receber_dano(self, dano: int) -> None:
-        self.vida -= dano
+    def receber_dano(self, dano):
+        self.vida = max(0, self.vida - dano)
 
-    def atacar(self, alvo: "Personagem") -> None:
-        acerto = random.randint(1, 100)
-        if acerto <= self.chance_acerto:
-            dano = random.randint(self.dano_min, self.dano_max)
-            print(f"\nA criatura acerta e causa {dano} de dano!")
-            alvo.receber_dano(dano)
-        else:
-            print("\nA criatura errou o ataque!")
+    def atacar(self, alvo, rng=None):
+        rng = rng or random
+        if rng.randint(1, 100) > self.chance_acerto:
+            return 0
+        return alvo.receber_dano(rng.randint(self.dano_min, self.dano_max))
+
+
+# id: nome, vida máxima, dano mínimo, dano máximo, chance de acerto
+INIMIGOS = {'zumbi': ('Zumbi do corredor', 30, 8, 13, 65),
+            'rastejante': ('Rastejante da despensa', 20, 5, 9, 60),
+            'criatura': ('A Criatura', 100, 12, 20, 65)}
