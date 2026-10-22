@@ -10,3 +10,4 @@ save.json
 
 save-backup*.json
 saves/
+dist/

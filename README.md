@@ -2,6 +2,11 @@
 
 Uma aventura curta de terror e sobrevivência no terminal, escrita em Python. Você se refugia em uma mansão com Helena e Davi e precisa encontrar uma saída, administrando vida, munição e curativos.
 
+**Candidata a lançamento: 1.0.0-rc.1.**
+[Guia de primeira partida](docs/primeira-partida.md) ·
+[Vídeo de demonstração — contém spoilers](docs/demo/README.md) ·
+[Histórico da versão](CHANGELOG.md)
+
 A história continua sendo um jogo em texto: explorar, conversar e escolher como gastar recursos faz parte da sobrevivência. Há duas rotas de fuga, e suas escolhas determinam qual delas estará disponível.
 
 ## Executar
@@ -15,6 +20,22 @@ python TheMansion.py
 ```
 
 O menu inicial permite criar uma partida, carregar um save ou sair. Escolha um nome ao começar uma aventura nova.
+
+Para conferir a versão: `python TheMansion.py --version`. No Windows, também
+é possível usar `py -3.12 TheMansion.py` se o comando `python` não estiver no PATH.
+
+## Preparar a distribuição
+
+```bash
+python scripts/build_release.py
+```
+
+O ZIP e `SHA256SUMS.txt` são gerados em `dist/`, usando apenas os arquivos públicos
+listados pelo empacotador. Não incluem saves pessoais, ambiente virtual ou chaves.
+Extraia o ZIP em uma pasta nova e execute `python TheMansion.py` dentro dela.
+O workflow **Release candidate** gera o mesmo pacote como artefato do CI em pushes,
+Pull Requests e execução manual;
+não cria tags nem publica GitHub Releases automaticamente.
 
 ## Controles
 

@@ -3,10 +3,12 @@ import argparse
 from pathlib import Path
 
 from interface import rodar
+from versao import __version__
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='TheMansion: uma aventura de sobrevivência no terminal.')
+    parser.add_argument('--version', action='version', version=f'TheMansion {__version__}')
     parser.add_argument('--seed', type=int, help='Semente opcional para repetir a mesma sequência aleatória')
     parser.add_argument('--save', type=Path, default=Path('save.json'), help='Caminho do save (padrão: save.json)')
     parser.add_argument('--load', action='store_true', help='Carregar diretamente o save, sem criar outra partida')

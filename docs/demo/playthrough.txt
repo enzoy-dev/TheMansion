@@ -1,0 +1,287 @@
+
+=== THE MANSION ===
+1 - Novo jogo
+2 - Carregar jogo
+3 - Sair
+Escolha: 1
+Qual é o seu nome? Sobrevivente
+
+Sobrevivente, você e seus amigos escaparam de criaturas na floresta. A mansão foi o único abrigo.
+A chuva aperta. Encontrem uma saída e sobrevivam até o amanhecer.
+
+[Entrada da mansão] Vida: 100/100 | Arma: punhos | Munição: 0 | Bandagens: 0
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+A chuva apaga os rastros na floresta. Helena e Davi esperam junto à porta.
+Precisamos encontrar uma saída antes do amanhecer.
+1 - Sala de jantar
+2 - Cozinha
+3 - Conversar com Helena
+4 - Conversar com Davi
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: m
+
+Entrada -- Sala de jantar -- Corredor -- Subsolo -- Garagem
+   |                           |   |
+Cozinha                      Quarto Escritório
+
+
+[Entrada da mansão] Vida: 100/100 | Arma: punhos | Munição: 0 | Bandagens: 0
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+A chuva apaga os rastros na floresta. Helena e Davi esperam junto à porta.
+Precisamos encontrar uma saída antes do amanhecer.
+1 - Sala de jantar
+2 - Cozinha
+3 - Conversar com Helena
+4 - Conversar com Davi
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: o
+Procure uma arma e uma chave na sala de jantar.
+
+[Entrada da mansão] Vida: 100/100 | Arma: punhos | Munição: 0 | Bandagens: 0
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+A chuva apaga os rastros na floresta. Helena e Davi esperam junto à porta.
+Precisamos encontrar uma saída antes do amanhecer.
+1 - Sala de jantar
+2 - Cozinha
+3 - Conversar com Helena
+4 - Conversar com Davi
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 3
+Helena entrega uma bandagem: "Há algo atrás da porta do corredor. Não deixe que te surpreenda."
+Consequência: você evitará o dano inicial da emboscada.
+
+[Entrada da mansão] Vida: 100/100 | Arma: punhos | Munição: 0 | Bandagens: 1
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+A chuva apaga os rastros na floresta. Helena e Davi esperam junto à porta.
+Precisamos encontrar uma saída antes do amanhecer.
+1 - Sala de jantar
+2 - Cozinha
+3 - Conversar com Helena
+4 - Conversar com Davi
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 4
+Davi desenha os cabos na poeira: "Eu te explico como ligar o gerador. Não gaste o fusível."
+Ele também indica a passagem de manutenção: um fusível pode abrir a rota sem enfrentar a criatura.
+
+[Entrada da mansão] Vida: 100/100 | Arma: punhos | Munição: 0 | Bandagens: 1
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+A chuva apaga os rastros na floresta. Helena e Davi esperam junto à porta.
+Precisamos encontrar uma saída antes do amanhecer.
+1 - Sala de jantar
+2 - Cozinha
+3 - Conversar com Helena
+4 - Conversar com Davi
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 2
+Você chega a Cozinha.
+
+[Cozinha] Vida: 100/100 | Arma: punhos | Munição: 0 | Bandagens: 1
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+O armário pende sobre pratos quebrados. A despensa emperrou. Um ruído vem da geladeira.
+1 - Abrir o armário
+2 - Forçar a despensa (perde 8 de vida)
+3 - Proteger a mão com uma bandagem e abrir a despensa
+4 - Investigar o ruído (risco de combate)
+5 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 1
+Você segura os pratos antes que caiam e encontra uma bandagem.
+
+[Cozinha] Vida: 100/100 | Arma: punhos | Munição: 0 | Bandagens: 2
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+O armário pende sobre pratos quebrados. A despensa emperrou. Um ruído vem da geladeira.
+O armário já foi examinado.
+1 - Abrir o armário
+2 - Forçar a despensa (perde 8 de vida)
+3 - Proteger a mão com uma bandagem e abrir a despensa
+4 - Investigar o ruído (risco de combate)
+5 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 3
+A bandagem protege sua mão e é consumida.
+Entre as caixas, você encontra 4 munições e um fusível intacto.
+
+[Cozinha] Vida: 100/100 | Arma: punhos | Munição: 4 | Bandagens: 1
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+O armário pende sobre pratos quebrados. A despensa está aberta e vazia. Um ruído vem da geladeira.
+O armário já foi examinado.
+1 - Abrir o armário
+2 - Forçar a despensa (perde 8 de vida)
+3 - Proteger a mão com uma bandagem e abrir a despensa
+4 - Investigar o ruído (risco de combate)
+5 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 5
+Você chega a Entrada da mansão.
+
+[Entrada da mansão] Vida: 100/100 | Arma: punhos | Munição: 4 | Bandagens: 1
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+A chuva apaga os rastros na floresta. Helena e Davi esperam junto à porta.
+Precisamos encontrar uma saída antes do amanhecer.
+1 - Sala de jantar
+2 - Cozinha
+3 - Conversar com Helena
+4 - Conversar com Davi
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 1
+Você chega a Sala de jantar.
+
+[Sala de jantar] Vida: 100/100 | Arma: punhos | Munição: 4 | Bandagens: 1
+Objetivo: Procure uma arma e uma chave na sala de jantar.
+A mesa está posta para pessoas que nunca voltaram. Uma porta com fechadura de caveira leva ao corredor.
+1 - Examinar a mesa
+2 - Vasculhar a gaveta
+3 - Abrir a porta do corredor
+4 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 1
+Sob a toalha da mesa, você encontra uma faca e uma chave em forma de caveira.
+
+[Sala de jantar] Vida: 100/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Atravesse o corredor. Prepare recursos e converse com seus aliados.
+A mesa está posta para pessoas que nunca voltaram. Uma porta com fechadura de caveira leva ao corredor.
+A mesa já foi vasculhada; a chave e a faca foram recolhidas.
+1 - Examinar a mesa
+2 - Vasculhar a gaveta
+3 - Abrir a porta do corredor
+4 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: i
+
+Inventário:
+- bandagem x1
+- munição x4
+- fusível x1
+- faca x1
+- chave de caveira x1
+Equipar: 1 - faca | 2 - pistola | 3 - punhos | 0 - voltar. Trocar não gasta turno.
+Escolha: 1
+Você equipou a faca.
+
+[Sala de jantar] Vida: 100/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Atravesse o corredor. Prepare recursos e converse com seus aliados.
+A mesa está posta para pessoas que nunca voltaram. Uma porta com fechadura de caveira leva ao corredor.
+A mesa já foi vasculhada; a chave e a faca foram recolhidas.
+1 - Examinar a mesa
+2 - Vasculhar a gaveta
+3 - Abrir a porta do corredor
+4 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: s
+Jogo salvo em demo-save.json.
+
+[Sala de jantar] Vida: 100/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Atravesse o corredor. Prepare recursos e converse com seus aliados.
+A mesa está posta para pessoas que nunca voltaram. Uma porta com fechadura de caveira leva ao corredor.
+A mesa já foi vasculhada; a chave e a faca foram recolhidas.
+1 - Examinar a mesa
+2 - Vasculhar a gaveta
+3 - Abrir a porta do corredor
+4 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: c
+Progresso de Sobrevivente carregado.
+
+[Sala de jantar] Vida: 100/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Atravesse o corredor. Prepare recursos e converse com seus aliados.
+A mesa está posta para pessoas que nunca voltaram. Uma porta com fechadura de caveira leva ao corredor.
+A mesa já foi vasculhada; a chave e a faca foram recolhidas.
+1 - Examinar a mesa
+2 - Vasculhar a gaveta
+3 - Abrir a porta do corredor
+4 - Voltar à entrada
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 3
+Você chega a Corredor.
+O aviso de Helena permite evitar a emboscada.
+Zumbi do corredor bloqueia o caminho. Vida restante: 30.
+
+[Corredor] Vida: 100/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Sobreviva ao encontro ou recue; o inimigo conserva a vida restante.
+Combate: Zumbi do corredor | Vida: 30
+1 - Atacar
+2 - Usar bandagem
+3 - Trocar arma (sem gastar turno)
+4 - Recuar (perde 6 de vida)
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 1
+Ataque com faca: 12 de dano.
+Zumbi do corredor causou 13 de dano.
+
+[Corredor] Vida: 87/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Sobreviva ao encontro ou recue; o inimigo conserva a vida restante.
+Combate: Zumbi do corredor | Vida: 18
+1 - Atacar
+2 - Usar bandagem
+3 - Trocar arma (sem gastar turno)
+4 - Recuar (perde 6 de vida)
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 1
+Ataque com faca: 11 de dano.
+Zumbi do corredor errou o ataque.
+
+[Corredor] Vida: 87/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Sobreviva ao encontro ou recue; o inimigo conserva a vida restante.
+Combate: Zumbi do corredor | Vida: 7
+1 - Atacar
+2 - Usar bandagem
+3 - Trocar arma (sem gastar turno)
+4 - Recuar (perde 6 de vida)
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 1
+Ataque com faca: 15 de dano.
+Zumbi do corredor foi derrotado.
+
+[Corredor] Vida: 87/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Ligue o gerador do subsolo: use um fusível ou peça orientação a Davi.
+O cheiro de podridão vem das escadas. Um quarto e um escritório ficam nas laterais.
+O corpo do zumbi continua imóvel junto à parede.
+1 - Entrar no quarto
+2 - Entrar no escritório
+3 - Descer ao subsolo
+4 - Voltar à sala de jantar
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 3
+Você chega a Subsolo.
+
+[Subsolo] Vida: 87/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Ligue o gerador do subsolo: use um fusível ou peça orientação a Davi.
+Um gerador antigo alimenta duas portas de aço. Atrás da esquerda, algo respira.
+A porta da garagem possui uma passagem de manutenção estreita.
+1 - Procurar recursos
+2 - Reparar o gerador
+3 - Enfrentar a criatura
+4 - Examinar a porta da garagem
+5 - Voltar ao corredor
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 2
+Seguindo as instruções de Davi, você reconecta os cabos e preserva o fusível.
+*VRRRRRRRR* As luzes acendem. A porta da criatura recebe energia.
+
+[Subsolo] Vida: 87/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Escape pela garagem: derrote a criatura ou use a manutenção com Davi e um fusível.
+Um gerador antigo alimenta duas portas de aço. Atrás da esquerda, algo respira.
+A porta da garagem possui uma passagem de manutenção estreita.
+O gerador está funcionando. Não precisa de outro reparo.
+1 - Procurar recursos
+2 - Reparar o gerador
+3 - Enfrentar a criatura
+4 - Examinar a porta da garagem
+5 - Voltar ao corredor
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 4
+Você chega a Acesso à garagem.
+
+[Acesso à garagem] Vida: 87/100 | Arma: faca | Munição: 4 | Bandagens: 1
+Objetivo: Escape pela garagem: derrote a criatura ou use a manutenção com Davi e um fusível.
+Um carro antigo espera do outro lado. O bloqueio principal responde à sala da criatura.
+1 - Abrir a passagem principal
+2 - Usar a passagem de manutenção (ajuda de Davi e um fusível)
+3 - Voltar ao subsolo
+i: inventário | b: bandagem | s: salvar | c: carregar | m: mapa | o: objetivo | q: sair sem salvar
+Sua ação: 2
+A passagem se abre. Helena e Davi correm até o carro com você.
+O motor pega enquanto o céu clareia. A mansão fica para trás.
+VOCÊS SOBREVIVERAM À NOITE.
+
+=== VITÓRIA ===
